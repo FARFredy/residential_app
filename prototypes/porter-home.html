@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResidencialApp - Portero</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    .app-container {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .quick-action {
+      background-color: white;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .quick-action-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      font-size: 24px;
+    }
+    
+    .badge-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: var(--error-color);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 slide-in">
+      <div>
+        <h1 class="text-xl font-bold">Portería</h1>
+        <p class="text-sm text-gray-500">Torre Principal</p>
+      </div>
+      <div class="relative">
+        <button class="bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-sm">
+          <i class="fas fa-bell text-gray-600"></i>
+        </button>
+        <span class="badge-count">3</span>
+      </div>
+    </div>
+    
+    <!-- Status Card -->
+    <div class="card mb-6 slide-in">
+      <div class="flex items-center mb-3">
+        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-3">
+          <i class="fas fa-user-check text-green-600 text-xl"></i>
+        </div>
+        <div>
+          <h2 class="font-medium">Juan Pérez</h2>
+          <p class="text-sm text-gray-600">En turno: 6:00 AM - 6:00 PM</p>
+        </div>
+        <button class="ml-auto bg-indigo-100 text-indigo-700 font-medium rounded-lg text-sm px-3 py-1.5">
+          Cambiar turno
+        </button>
+      </div>
+      
+      <div class="flex justify-between">
+        <div class="text-center">
+          <p class="text-xl font-bold text-indigo-600">12</p>
+          <p class="text-xs text-gray-600">Visitantes hoy</p>
+        </div>
+        <div class="text-center">
+          <p class="text-xl font-bold text-amber-600">5</p>
+          <p class="text-xs text-gray-600">Paquetes pendientes</p>
+        </div>
+        <div class="text-center">
+          <p class="text-xl font-bold text-green-600">43</p>
+          <p class="text-xs text-gray-600">Residentes presentes</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quick Actions -->
+    <h2 class="font-semibold mb-3 slide-in" style="animation-delay: 0.1s;">Acciones rápidas</h2>
+    
+    <div class="grid grid-cols-2 gap-4 mb-6 slide-in" style="animation-delay: 0.1s;">
+      <div class="quick-action" onclick="location.href='porter-visitors.html'">
+        <div class="quick-action-icon bg-blue-100 text-blue-600">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <span class="text-sm font-medium">Registrar visitante</span>
+      </div>
+      
+      <div class="quick-action" onclick="location.href='porter-intercom.html'">
+        <div class="quick-action-icon bg-green-100 text-green-600">
+          <i class="fas fa-phone-alt"></i>
+        </div>
+        <span class="text-sm font-medium">Llamar a residente</span>
+      </div>
+      
+      <div class="quick-action" onclick="location.href='porter-packages.html'">
+        <div class="quick-action-icon bg-amber-100 text-amber-600">
+          <i class="fas fa-box"></i>
+        </div>
+        <span class="text-sm font-medium">Registrar paquete</span>
+      </div>
+      
+      <div class="quick-action">
+        <div class="quick-action-icon bg-red-100 text-red-600">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <span class="text-sm font-medium">Reportar incidente</span>
+      </div>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="flex justify-between items-center mb-3 slide-in" style="animation-delay: 0.2s;">
+      <h2 class="font-semibold">Actividad reciente</h2>
+      <span class="text-sm text-indigo-600">Ver todo</span>
+    </div>
+    
+    <div class="card slide-in" style="animation-delay: 0.2s;">
+      <div class="flex items-start mb-4 pb-4 border-b border-gray-100">
+        <div class="bg-blue-100 h-10 w-10 rounded-full flex items-center justify-center text-blue-600 mr-3">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <div>
+          <h3 class="font-medium text-sm">Visitante registrado</h3>
+          <p class="text-xs text-gray-500 mb-1">Carlos Gómez - Visitante para Apto 502</p>
+          <p class="text-xs text-gray-400">Hace 5 minutos</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start mb-4 pb-4 border-b border-gray-100">
+        <div class="bg-amber-100 h-10 w-10 rounded-full flex items-center justify-center text-amber-600 mr-3">
+          <i class="fas fa-box"></i>
+        </div>
+        <div>
+          <h3 class="font-medium text-sm">Paquete entregado</h3>
+          <p class="text-xs text-gray-500 mb-1">Amazon - Entregado a Apto 305</p>
+          <p class="text-xs text-gray-400">Hace 15 minutos</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start mb-4 pb-4 border-b border-gray-100">
+        <div class="bg-green-100 h-10 w-10 rounded-full flex items-center justify-center text-green-600 mr-3">
+          <i class="fas fa-phone-alt"></i>
+        </div>
+        <div>
+          <h3 class="font-medium text-sm">Llamada a residente</h3>
+          <p class="text-xs text-gray-500 mb-1">Apto 703 - Confirmación de visitante</p>
+          <p class="text-xs text-gray-400">Hace 22 minutos</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <div class="bg-purple-100 h-10 w-10 rounded-full flex items-center justify-center text-purple-600 mr-3">
+          <i class="fas fa-car"></i>
+        </div>
+        <div>
+          <h3 class="font-medium text-sm">Vehículo registrado</h3>
+          <p class="text-xs text-gray-500 mb-1">Toyota Corolla - Placa ABC123</p>
+          <p class="text-xs text-gray-400">Hace 30 minutos</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pending Tasks -->
+    <div class="flex justify-between items-center my-3 slide-in" style="animation-delay: 0.3s;">
+      <h2 class="font-semibold">Tareas pendientes</h2>
+    </div>
+    
+    <div class="card slide-in" style="animation-delay: 0.3s;">
+      <div class="flex items-center mb-4 pb-3 border-b border-gray-100">
+        <input type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded mr-3">
+        <div>
+          <h3 class="font-medium text-sm">Verificar cámaras de seguridad</h3>
+          <p class="text-xs text-gray-500">9:00 AM</p>
+        </div>
+        <span class="ml-auto bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Urgente</span>
+      </div>
+      
+      <div class="flex items-center mb-4 pb-3 border-b border-gray-100">
+        <input type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded mr-3">
+        <div>
+          <h3 class="font-medium text-sm">Revisar registro de visitantes</h3>
+          <p class="text-xs text-gray-500">11:30 AM</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center">
+        <input type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded mr-3">
+        <div>
+          <h3 class="font-medium text-sm">Actualizar libro de novedades</h3>
+          <p class="text-xs text-gray-500">2:00 PM</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

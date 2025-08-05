@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResidencialApp - Perfil</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    .app-container {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+    }
+    
+    .profile-image {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .edit-button {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 28px;
+      height: 28px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 slide-in">
+      <h1 class="text-xl font-bold">Perfil</h1>
+      <button class="text-indigo-600">
+        <i class="fas fa-cog text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Profile Card -->
+    <div class="card flex items-start mb-6 slide-in">
+      <div class="relative mr-4">
+        <div class="profile-image bg-gray-200 flex items-center justify-center">
+          <i class="fas fa-user text-3xl text-gray-400"></i>
+        </div>
+        <button class="edit-button">
+          <i class="fas fa-pen"></i>
+        </button>
+      </div>
+      
+      <div>
+        <h2 class="text-lg font-bold mb-1">Carlos Rodríguez</h2>
+        <p class="text-sm text-gray-600 mb-3">Torre A - Apartamento 501</p>
+        <div class="flex items-center">
+          <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Residente</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Personal Information -->
+    <div class="card mb-6 slide-in" style="animation-delay: 0.1s;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">Información personal</h2>
+        <button class="text-indigo-600 text-sm">Editar</button>
+      </div>
+      
+      <div class="grid grid-cols-1 gap-4">
+        <div>
+          <p class="text-sm text-gray-600 mb-1">Número de documento</p>
+          <p class="font-medium">1023456789</p>
+        </div>
+        
+        <div>
+          <p class="text-sm text-gray-600 mb-1">Correo electrónico</p>
+          <p class="font-medium">carlos.rodriguez@gmail.com</p>
+        </div>
+        
+        <div>
+          <p class="text-sm text-gray-600 mb-1">Teléfono</p>
+          <p class="font-medium">+57 310 456 7890</p>
+        </div>
+        
+        <div>
+          <p class="text-sm text-gray-600 mb-1">Fecha de nacimiento</p>
+          <p class="font-medium">15/03/1985</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Vehicles -->
+    <div class="card mb-6 slide-in" style="animation-delay: 0.2s;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">Mis vehículos</h2>
+        <button class="text-indigo-600 text-sm">Agregar</button>
+      </div>
+      
+      <div class="flex items-start border-b border-gray-100 pb-4 mb-4">
+        <div class="bg-blue-100 h-10 w-10 rounded-full flex items-center justify-center text-blue-600 mr-3">
+          <i class="fas fa-car"></i>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <h3 class="font-medium">Mazda CX-30</h3>
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-600 mb-1">Placa: ABC123</p>
+          <p class="text-sm text-gray-600">Parqueadero: A-32</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <div class="bg-blue-100 h-10 w-10 rounded-full flex items-center justify-center text-blue-600 mr-3">
+          <i class="fas fa-motorcycle"></i>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <h3 class="font-medium">Honda CB190R</h3>
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-600 mb-1">Placa: XYZ789</p>
+          <p class="text-sm text-gray-600">Parqueadero: M-08</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Family Members -->
+    <div class="card mb-6 slide-in" style="animation-delay: 0.3s;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">Miembros de la familia</h2>
+        <button class="text-indigo-600 text-sm">Agregar</button>
+      </div>
+      
+      <div class="flex items-start border-b border-gray-100 pb-4 mb-4">
+        <div class="bg-purple-100 h-10 w-10 rounded-full flex items-center justify-center text-purple-600 mr-3">
+          <i class="fas fa-user"></i>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <h3 class="font-medium">María Rodríguez</h3>
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-600 mb-1">Esposa</p>
+          <p class="text-sm text-gray-600">+57 310 987 6543</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <div class="bg-purple-100 h-10 w-10 rounded-full flex items-center justify-center text-purple-600 mr-3">
+          <i class="fas fa-child"></i>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <h3 class="font-medium">Sofía Rodríguez</h3>
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-600 mb-1">Hija</p>
+          <p class="text-sm text-gray-600">8 años</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Regular Visitors -->
+    <div class="card mb-6 slide-in" style="animation-delay: 0.4s;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">Visitantes frecuentes</h2>
+        <button class="text-indigo-600 text-sm">Agregar</button>
+      </div>
+      
+      <div class="flex items-start border-b border-gray-100 pb-4 mb-4">
+        <div class="bg-amber-100 h-10 w-10 rounded-full flex items-center justify-center text-amber-600 mr-3">
+          <i class="fas fa-user-friends"></i>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <h3 class="font-medium">Jorge Martínez</h3>
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-600 mb-1">Amigo</p>
+          <p class="text-sm text-gray-600">C.C. 1023456788</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <div class="bg-amber-100 h-10 w-10 rounded-full flex items-center justify-center text-amber-600 mr-3">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <div>
+          <div class="flex justify-between">
+            <h3 class="font-medium">Claudia Gómez</h3>
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-600 mb-1">Empleada doméstica</p>
+          <p class="text-sm text-gray-600">C.C. 1034567890</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Preferences -->
+    <div class="card slide-in" style="animation-delay: 0.5s;">
+      <h2 class="font-semibold mb-4">Preferencias</h2>
+      
+      <div class="flex justify-between items-center py-3 border-b border-gray-100">
+        <div class="flex items-center">
+          <i class="fas fa-bell text-gray-500 mr-3"></i>
+          <span>Notificaciones push</span>
+        </div>
+        <label class="inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" class="sr-only peer" checked>
+          <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        </label>
+      </div>
+      
+      <div class="flex justify-between items-center py-3 border-b border-gray-100">
+        <div class="flex items-center">
+          <i class="fas fa-envelope text-gray-500 mr-3"></i>
+          <span>Notificaciones por correo</span>
+        </div>
+        <label class="inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" class="sr-only peer" checked>
+          <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        </label>
+      </div>
+      
+      <div class="flex justify-between items-center py-3 border-b border-gray-100">
+        <div class="flex items-center">
+          <i class="fas fa-comments text-gray-500 mr-3"></i>
+          <span>Notificaciones por SMS</span>
+        </div>
+        <label class="inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" class="sr-only peer">
+          <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        </label>
+      </div>
+      
+      <div class="flex justify-between items-center py-3">
+        <div class="flex items-center">
+          <i class="fas fa-shield-alt text-gray-500 mr-3"></i>
+          <span>Acceso biométrico</span>
+        </div>
+        <label class="inline-flex items-center cursor-pointer">
+          <input type="checkbox" value="" class="sr-only peer" checked>
+          <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+        </label>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

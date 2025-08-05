@@ -1,0 +1,69 @@
+flowchart TD
+    subgraph "Frontend"
+        A[App Móvil Residentes] 
+        B[App Móvil Porteros]
+        C[Panel Web Administradores]
+    end
+
+    subgraph "Backend"
+        D[API Gateway / Load Balancer]
+        
+        subgraph "Microservicios"
+            E[Servicio de Usuarios]
+            F[Servicio de Pagos]
+            G[Servicio de Comunicaciones]
+            H[Servicio de Reservas]
+            I[Servicio de Notificaciones]
+        end
+        
+        J[(MongoDB)]
+        K[(Redis Cache)]
+        
+        L[WebSocket Server]
+        M[Job Queue]
+    end
+    
+    subgraph "Servicios Externos"
+        N[Pasarela de Pagos]
+        O[Servicio de Email]
+        P[Servicio de SMS]
+        Q[Firebase FCM]
+        R[Almacenamiento S3]
+    end
+    
+    A --> D
+    B --> D
+    C --> D
+    
+    D --> E
+    D --> F
+    D --> G
+    D --> H
+    D --> I
+    
+    E --> J
+    F --> J
+    G --> J
+    H --> J
+    I --> J
+    
+    E --> K
+    F --> K
+    G --> K
+    H --> K
+    I --> K
+    
+    G --> L
+    
+    E --> M
+    F --> M
+    I --> M
+    
+    F --> N
+    I --> O
+    I --> P
+    I --> Q
+    
+    E --> R
+    G --> R
+    H --> R

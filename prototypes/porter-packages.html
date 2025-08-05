@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResidencialApp - Paquetería</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    .app-container {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+    }
+    
+    .tab-active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .camera-view {
+      height: 200px;
+      background-color: #000;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+    }
+    
+    .camera-controls {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    
+    .camera-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    
+    .photo-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .badge-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: var(--error-color);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .courier-logo {
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 slide-in">
+      <div class="flex items-center">
+        <a href="porter-home.html" class="mr-2">
+          <i class="fas fa-arrow-left text-gray-700"></i>
+        </a>
+        <h1 class="text-xl font-bold">Paquetería</h1>
+      </div>
+      <div class="relative">
+        <button class="bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-sm">
+          <i class="fas fa-qrcode text-gray-600"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="flex border-b border-gray-200 mb-6 slide-in">
+      <button class="pb-2 px-4 tab-active">Registrar</button>
+      <button class="pb-2 px-4 text-gray-500">Pendientes</button>
+      <button class="pb-2 px-4 text-gray-500">Entregados</button>
+    </div>
+    
+    <!-- Register Package Form -->
+    <div class="slide-in" style="animation-delay: 0.1s;">
+      <div class="camera-view mb-4">
+        <i class="fas fa-camera text-4xl mb-2 opacity-50"></i>
+        <p class="text-sm opacity-70">Toma una foto del paquete</p>
+        
+        <div class="camera-controls">
+          <button class="camera-btn">
+            <i class="fas fa-bolt"></i>
+          </button>
+          <button class="photo-btn">
+            <i class="fas fa-circle"></i>
+          </button>
+          <button class="camera-btn">
+            <i class="fas fa-sync"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="card mb-4">
+        <h2 class="font-medium mb-4">Información del paquete</h2>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Empresa de mensajería</label>
+          <div class="relative">
+            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 pl-10">
+              <option>Seleccionar empresa</option>
+              <option>Servientrega</option>
+              <option>Coordinadora</option>
+              <option>Interrapidísimo</option>
+              <option>Deprisa</option>
+              <option>Mercado Libre</option>
+              <option>Amazon</option>
+              <option>Otra</option>
+            </select>
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="fas fa-shipping-fast text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Número de guía (opcional)</label>
+          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de paquete</label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <option>Caja</option>
+            <option>Sobre</option>
+            <option>Bolsa</option>
+            <option>Documento</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Tamaño</label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <option>Pequeño</option>
+            <option>Mediano</option>
+            <option>Grande</option>
+            <option>Muy grande</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="fragile-checkbox" type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+            <label for="fragile-checkbox" class="ml-2 text-sm font-medium text-gray-700">Paquete frágil</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mb-4">
+        <h2 class="font-medium mb-4">Destinatario</h2>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Torre</label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <option>Torre A</option>
+            <option>Torre B</option>
+            <option>Torre C</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Apartamento</label>
+          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Destinatario</label>
+          <div class="relative">
+            <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Observaciones (opcional)</label>
+          <textarea class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" rows="2"></textarea>
+        </div>
+      </div>
+      
+      <div class="flex space-x-4 mb-6">
+        <button class="flex-1 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+          Guardar borrador
+        </button>
+        <button class="flex-1 py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors" onclick="showConfirmation()">
+          Registrar paquete
+        </button>
+      </div>
+    </div>
+    
+    <!-- Pending Packages (initially hidden) -->
+    <div id="pendingPackages" class="hidden slide-in" style="animation-delay: 0.2s;">
+      <div class="mb-4">
+        <div class="relative">
+          <input type="text" placeholder="Buscar por destinatario o apartamento" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+          <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+      </div>
+      
+      <div class="card mb-4">
+        <div class="flex items-start">
+          <div class="courier-logo mr-3 bg-amber-50">
+            <i class="fab fa-amazon text-amber-500"></i>
+          </div>
+          
+          <div class="flex-1">
+            <div class="flex justify-between mb-1">
+              <h3 class="font-medium">Apto 501 - Torre A</h3>
+              <span class="text-sm text-gray-500">Hoy</span>
+            </div>
+            
+            <p class="text-sm text-gray-600">Destinatario: Carlos Rodríguez</p>
+            <div class="flex items-center text-xs text-gray-500 mt-1">
+              <i class="fas fa-box-open mr-1"></i>
+              <span>Caja mediana</span>
+              <span class="mx-1">•</span>
+              <i class="fas fa-tag mr-1"></i>
+              <span>AMZ-12345</span>
+            </div>
+          </div>
+          
+          <button class="ml-2 text-indigo-600 font-medium text-sm">
+            Entregar
+          </button>
+        </div>
+      </div>
+      
+      <div class="card mb-4">
+        <div class="flex items-start">
+          <div class="courier-logo mr-3 bg-green-50">
+            <i class="fas fa-truck text-green-500"></i>
+          </div>
+          
+          <div class="flex-1">
+            <div class="flex justify-between mb-1">
+              <h3 class="font-medium">Apto 302 - Torre B</h3>
+              <span class="text-sm text-gray-500">Ayer</span>
+            </div>
+            
+            <p class="text-sm text-gray-600">Destinatario: Ana López</p>
+            <div class="flex items-center text-xs text-gray-500 mt-1">
+              <i class="fas fa-box-open mr-1"></i>
+              <span>Sobre</span>
+              <span class="mx-1">•</span>
+              <i class="fas fa-tag mr-1"></i>
+              <span>SRV-54321</span>
+            </div>
+          </div>
+          
+          <button class="ml-2 text-indigo-600 font-medium text-sm">
+            Entregar
+          </button>
+        </div>
+      </div>
+      
+      <div class="card mb-4">
+        <div class="flex items-start">
+          <div class="courier-logo mr-3 bg-blue-50">
+            <i class="fas fa-shipping-fast text-blue-500"></i>
+          </div>
+          
+          <div class="flex-1">
+            <div class="flex justify-between mb-1">
+              <h3 class="font-medium">Apto 703 - Torre C</h3>
+              <span class="text-sm text-gray-500">Ayer</span>
+            </div>
+            
+            <p class="text-sm text-gray-600">Destinatario: Roberto Sánchez</p>
+            <div class="flex items-center text-xs text-gray-500 mt-1">
+              <i class="fas fa-box-open mr-1"></i>
+              <span>Caja pequeña</span>
+              <span class="mx-1">•</span>
+              <i class="fas fa-exclamation-triangle mr-1 text-amber-500"></i>
+              <span class="text-amber-500">Frágil</span>
+            </div>
+          </div>
+          
+          <button class="ml-2 text-indigo-600 font-medium text-sm">
+            Entregar
+          </button>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="flex items-start">
+          <div class="courier-logo mr-3 bg-purple-50">
+            <i class="fas fa-box text-purple-500"></i>
+          </div>
+          
+          <div class="flex-1">
+            <div class="flex justify-between mb-1">
+              <h3 class="font-medium">Apto 401 - Torre A</h3>
+              <span class="text-sm text-gray-500">2 días</span>
+            </div>
+            
+            <p class="text-sm text-gray-600">Destinatario: María González</p>
+            <div class="flex items-center text-xs text-gray-500 mt-1">
+              <i class="fas fa-box-open mr-1"></i>
+              <span>Bolsa</span>
+              <span class="mx-1">•</span>
+              <i class="fas fa-tag mr-1"></i>
+              <span>ML-98765</span>
+            </div>
+          </div>
+          
+          <button class="ml-2 text-indigo-600 font-medium text-sm">
+            Entregar
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Confirmation Dialog (hidden) -->
+    <div id="confirmationDialog" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="bg-white rounded-lg p-6 m-4 max-w-sm">
+        <div class="flex flex-col items-center text-center">
+          <div class="mb-4 bg-green-100 p-3 rounded-full">
+            <i class="fas fa-check text-2xl text-green-600"></i>
+          </div>
+          <h3 class="text-lg font-medium mb-2">¡Paquete registrado!</h3>
+          <p class="text-sm text-gray-600 mb-6">El paquete ha sido registrado exitosamente. Se ha enviado una notificación al residente.</p>
+          <button onclick="hideConfirmation()" class="w-full py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+            Entendido
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function showConfirmation() {
+      document.getElementById('confirmationDialog').classList.remove('hidden');
+    }
+    
+    function hideConfirmation() {
+      document.getElementById('confirmationDialog').classList.add('hidden');
+      // Reset form or redirect to pending packages
+    }
+  </script>
+</body>
+</html>

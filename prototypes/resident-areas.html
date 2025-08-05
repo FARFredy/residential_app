@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResidencialApp - Áreas Comunes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    .app-container {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+    }
+    
+    .tab-active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .area-image {
+      height: 120px;
+      border-radius: 12px 12px 0 0;
+      object-fit: cover;
+      width: 100%;
+    }
+    
+    .time-slot {
+      border: 1px solid #e2e8f0;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    
+    .time-slot.available {
+      border-color: #e2e8f0;
+    }
+    
+    .time-slot.selected {
+      border-color: var(--primary-color);
+      background-color: rgba(63, 81, 181, 0.05);
+    }
+    
+    .time-slot.unavailable {
+      background-color: #f3f4f6;
+      color: #9ca3af;
+      cursor: not-allowed;
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 slide-in">
+      <h1 class="text-xl font-bold">Áreas Comunes</h1>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="flex border-b border-gray-200 mb-6 slide-in">
+      <button class="pb-2 px-4 tab-active">Reservar</button>
+      <button class="pb-2 px-4 text-gray-500">Mis Reservas</button>
+    </div>
+    
+    <!-- Areas Grid -->
+    <div class="grid grid-cols-2 gap-3 mb-6 slide-in" style="animation-delay: 0.1s;">
+      <div class="card p-0 overflow-hidden" onclick="showAreaDetails('social')">
+        <div class="area-image bg-gray-200 flex items-center justify-center">
+          <i class="fas fa-users text-4xl text-gray-400"></i>
+        </div>
+        <div class="p-3">
+          <h3 class="font-medium">Salón Social</h3>
+          <div class="flex justify-between items-center">
+            <span class="text-xs text-gray-500">4h máx.</span>
+            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Disponible</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card p-0 overflow-hidden" onclick="showAreaDetails('bbq')">
+        <div class="area-image bg-gray-200 flex items-center justify-center">
+          <i class="fas fa-fire text-4xl text-gray-400"></i>
+        </div>
+        <div class="p-3">
+          <h3 class="font-medium">Zona BBQ</h3>
+          <div class="flex justify-between items-center">
+            <span class="text-xs text-gray-500">3h máx.</span>
+            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Disponible</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card p-0 overflow-hidden" onclick="showAreaDetails('gym')">
+        <div class="area-image bg-gray-200 flex items-center justify-center">
+          <i class="fas fa-dumbbell text-4xl text-gray-400"></i>
+        </div>
+        <div class="p-3">
+          <h3 class="font-medium">Gimnasio</h3>
+          <div class="flex justify-between items-center">
+            <span class="text-xs text-gray-500">1.5h máx.</span>
+            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Ocupado</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card p-0 overflow-hidden" onclick="showAreaDetails('pool')">
+        <div class="area-image bg-gray-200 flex items-center justify-center">
+          <i class="fas fa-swimming-pool text-4xl text-gray-400"></i>
+        </div>
+        <div class="p-3">
+          <h3 class="font-medium">Piscina</h3>
+          <div class="flex justify-between items-center">
+            <span class="text-xs text-gray-500">2h máx.</span>
+            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Disponible</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Area Details (initially hidden) -->
+    <div id="areaDetails" class="hidden slide-in" style="animation-delay: 0.2s;">
+      <div class="flex justify-between items-center mb-3">
+        <div class="flex items-center">
+          <button onclick="hideAreaDetails()" class="mr-2">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <h2 id="areaTitle" class="font-semibold">Salón Social</h2>
+        </div>
+      </div>
+      
+      <div class="card p-0 overflow-hidden mb-4">
+        <div id="areaImageContainer" class="w-full h-40 bg-gray-200 flex items-center justify-center">
+          <i id="areaIcon" class="fas fa-users text-5xl text-gray-400"></i>
+        </div>
+        
+        <div class="p-4">
+          <div class="flex justify-between mb-2">
+            <div>
+              <span id="areaCapacity" class="text-sm text-gray-600">Capacidad: 30 personas</span>
+            </div>
+            <span id="areaPrice" class="font-semibold">$150.000 COP</span>
+          </div>
+          
+          <p id="areaDescription" class="text-sm text-gray-600 mb-4">
+            Espacio perfecto para eventos sociales como cumpleaños, reuniones familiares o celebraciones especiales. Incluye mesas, sillas y acceso a cocina básica.
+          </p>
+          
+          <div class="flex space-x-2 mb-3">
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Cocina</span>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Baño</span>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Mesas y sillas</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Reservation Form -->
+      <div class="card mb-4">
+        <h3 class="font-medium mb-4">Seleccionar fecha</h3>
+        
+        <div class="grid grid-cols-7 gap-1 text-center mb-4">
+          <div class="text-xs text-gray-500">D</div>
+          <div class="text-xs text-gray-500">L</div>
+          <div class="text-xs text-gray-500">M</div>
+          <div class="text-xs text-gray-500">M</div>
+          <div class="text-xs text-gray-500">J</div>
+          <div class="text-xs text-gray-500">V</div>
+          <div class="text-xs text-gray-500">S</div>
+          
+          <div class="text-center py-2 text-gray-400">30</div>
+          <div class="text-center py-2 text-gray-400">31</div>
+          <div class="text-center py-2">1</div>
+          <div class="text-center py-2">2</div>
+          <div class="text-center py-2">3</div>
+          <div class="text-center py-2 bg-indigo-100 text-indigo-700 font-medium rounded-full">4</div>
+          <div class="text-center py-2">5</div>
+          
+          <div class="text-center py-2">6</div>
+          <div class="text-center py-2">7</div>
+          <div class="text-center py-2">8</div>
+          <div class="text-center py-2">9</div>
+          <div class="text-center py-2">10</div>
+          <div class="text-center py-2">11</div>
+          <div class="text-center py-2">12</div>
+          
+          <div class="text-center py-2">13</div>
+          <div class="text-center py-2">14</div>
+          <div class="text-center py-2">15</div>
+          <div class="text-center py-2">16</div>
+          <div class="text-center py-2">17</div>
+          <div class="text-center py-2">18</div>
+          <div class="text-center py-2">19</div>
+        </div>
+        
+        <h3 class="font-medium mb-3">Horarios disponibles</h3>
+        <div class="grid grid-cols-2 gap-2 mb-4">
+          <div class="time-slot available text-center py-2 text-sm" onclick="selectTimeSlot(this)">
+            8:00 AM - 12:00 PM
+          </div>
+          <div class="time-slot unavailable text-center py-2 text-sm">
+            12:00 PM - 4:00 PM
+          </div>
+          <div class="time-slot available text-center py-2 text-sm" onclick="selectTimeSlot(this)">
+            4:00 PM - 8:00 PM
+          </div>
+          <div class="time-slot available text-center py-2 text-sm" onclick="selectTimeSlot(this)">
+            8:00 PM - 12:00 AM
+          </div>
+        </div>
+        
+        <h3 class="font-medium mb-3">Información adicional</h3>
+        <textarea placeholder="Describa el motivo de su reserva (tipo de evento, cantidad de personas, etc.)" class="w-full border border-gray-300 rounded-lg p-3 mb-4 text-sm" rows="3"></textarea>
+        
+        <div class="flex justify-between items-center mb-4">
+          <span class="font-medium">Total a pagar:</span>
+          <span id="totalPrice" class="font-bold text-lg">$150.000 COP</span>
+        </div>
+        
+        <button class="w-full py-2.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors" onclick="confirmReservation()">
+          Confirmar reserva
+        </button>
+      </div>
+      
+      <!-- Rules -->
+      <div class="card">
+        <h3 class="font-medium mb-3">Normas de uso</h3>
+        <ul class="text-sm text-gray-600 space-y-2 list-disc pl-5">
+          <li>Respetar los horarios de reserva establecidos</li>
+          <li>Mantener el volumen de música y ruido en niveles moderados</li>
+          <li>Entregar el espacio limpio y ordenado al finalizar</li>
+          <li>Cancelaciones con menos de 24 horas no tendrán reembolso</li>
+          <li>No se permite el ingreso de personas externas sin autorización</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- My Reservations (initially hidden) -->
+    <div id="myReservations" class="hidden slide-in" style="animation-delay: 0.2s;">
+      <h2 class="font-semibold mb-3">Mis próximas reservas</h2>
+      
+      <div class="card mb-4">
+        <div class="flex justify-between mb-2">
+          <h3 class="font-medium">Salón Social</h3>
+          <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Confirmada</span>
+        </div>
+        
+        <div class="flex items-center text-sm text-gray-600 mb-3">
+          <i class="far fa-calendar mr-2"></i>
+          <span>Sábado, 12 de agosto, 2025</span>
+        </div>
+        
+        <div class="flex items-center text-sm text-gray-600 mb-3">
+          <i class="far fa-clock mr-2"></i>
+          <span>4:00 PM - 8:00 PM</span>
+        </div>
+        
+        <div class="text-sm text-gray-600 mb-4">
+          <span class="font-medium">Motivo:</span> Fiesta de cumpleaños
+        </div>
+        
+        <div class="flex justify-between">
+          <button class="py-2 px-4 border border-gray-300 rounded-lg text-gray-700 text-sm font-medium">
+            Cancelar
+          </button>
+          <button class="py-2 px-4 bg-indigo-600 text-white rounded-lg text-sm font-medium">
+            Ver detalles
+          </button>
+        </div>
+      </div>
+      
+      <h2 class="font-semibold mb-3">Historial de reservas</h2>
+      
+      <div class="card mb-4">
+        <div class="flex justify-between mb-2">
+          <h3 class="font-medium">Zona BBQ</h3>
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Completada</span>
+        </div>
+        
+        <div class="flex items-center text-sm text-gray-600 mb-3">
+          <i class="far fa-calendar mr-2"></i>
+          <span>Domingo, 20 de julio, 2025</span>
+        </div>
+        
+        <div class="flex items-center text-sm text-gray-600 mb-3">
+          <i class="far fa-clock mr-2"></i>
+          <span>12:00 PM - 3:00 PM</span>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="flex justify-between mb-2">
+          <h3 class="font-medium">Piscina</h3>
+          <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Completada</span>
+        </div>
+        
+        <div class="flex items-center text-sm text-gray-600 mb-3">
+          <i class="far fa-calendar mr-2"></i>
+          <span>Sábado, 5 de julio, 2025</span>
+        </div>
+        
+        <div class="flex items-center text-sm text-gray-600 mb-3">
+          <i class="far fa-clock mr-2"></i>
+          <span>2:00 PM - 4:00 PM</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Confirmation Dialog (hidden) -->
+    <div id="confirmationDialog" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="bg-white rounded-lg p-6 m-4 max-w-sm">
+        <div class="flex flex-col items-center text-center">
+          <div class="mb-4 bg-green-100 p-3 rounded-full">
+            <i class="fas fa-check text-2xl text-green-600"></i>
+          </div>
+          <h3 class="text-lg font-medium mb-2">¡Reserva confirmada!</h3>
+          <p class="text-sm text-gray-600 mb-6">Su reserva ha sido confirmada exitosamente. Puede ver los detalles en la sección "Mis Reservas".</p>
+          <button onclick="hideConfirmation()" class="w-full py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+            Entendido
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    function showAreaDetails(areaId) {
+      document.getElementById('areaDetails').classList.remove('hidden');
+      
+      // Set area-specific information
+      if (areaId === 'social') {
+        document.getElementById('areaTitle').textContent = 'Salón Social';
+        document.getElementById('areaIcon').className = 'fas fa-users text-5xl text-gray-400';
+        document.getElementById('areaCapacity').textContent = 'Capacidad: 30 personas';
+        document.getElementById('areaPrice').textContent = '$150.000 COP';
+        document.getElementById('totalPrice').textContent = '$150.000 COP';
+      } else if (areaId === 'bbq') {
+        document.getElementById('areaTitle').textContent = 'Zona BBQ';
+        document.getElementById('areaIcon').className = 'fas fa-fire text-5xl text-gray-400';
+        document.getElementById('areaCapacity').textContent = 'Capacidad: 15 personas';
+        document.getElementById('areaPrice').textContent = '$100.000 COP';
+        document.getElementById('totalPrice').textContent = '$100.000 COP';
+      } else if (areaId === 'pool') {
+        document.getElementById('areaTitle').textContent = 'Piscina';
+        document.getElementById('areaIcon').className = 'fas fa-swimming-pool text-5xl text-gray-400';
+        document.getElementById('areaCapacity').textContent = 'Capacidad: 20 personas';
+        document.getElementById('areaPrice').textContent = '$80.000 COP';
+        document.getElementById('totalPrice').textContent = '$80.000 COP';
+      } else if (areaId === 'gym') {
+        document.getElementById('areaTitle').textContent = 'Gimnasio';
+        document.getElementById('areaIcon').className = 'fas fa-dumbbell text-5xl text-gray-400';
+        document.getElementById('areaCapacity').textContent = 'Capacidad: 12 personas';
+        document.getElementById('areaPrice').textContent = '$0 COP';
+        document.getElementById('totalPrice').textContent = '$0 COP';
+      }
+    }
+    
+    function hideAreaDetails() {
+      document.getElementById('areaDetails').classList.add('hidden');
+    }
+    
+    function selectTimeSlot(element) {
+      // Remove selected class from all time slots
+      document.querySelectorAll('.time-slot').forEach(slot => {
+        if (!slot.classList.contains('unavailable')) {
+          slot.classList.remove('selected');
+        }
+      });
+      
+      // Add selected class to clicked element
+      element.classList.add('selected');
+    }
+    
+    function confirmReservation() {
+      document.getElementById('confirmationDialog').classList.remove('hidden');
+    }
+    
+    function hideConfirmation() {
+      document.getElementById('confirmationDialog').classList.add('hidden');
+      hideAreaDetails();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+  <title>ResidencialApp - Gestión de Unidades Residenciales</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* iPhone 15 Pro mockup styles */
+    :root {
+      --phone-width: 380px;
+      --phone-height: 820px;
+      --phone-border-radius: 55px;
+      --status-bar-height: 44px;
+      --navigation-bar-height: 83px;
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f2f5;
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+    }
+    
+    .iphone-mockup {
+      width: var(--phone-width);
+      height: var(--phone-height);
+      background-color: #000;
+      border-radius: var(--phone-border-radius);
+      padding: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      border-radius: calc(var(--phone-border-radius) - 8px);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .status-bar {
+      height: var(--status-bar-height);
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      font-size: 14px;
+      color: #000;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .status-bar-left {
+      display: flex;
+      align-items: center;
+    }
+    
+    .status-bar-right {
+      display: flex;
+      align-items: center;
+    }
+    
+    .status-bar-right i {
+      margin-left: 5px;
+    }
+    
+    .content-area {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .nav-bar {
+      height: var(--navigation-bar-height);
+      background-color: #fff;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 10px;
+      cursor: pointer;
+      width: 20%;
+    }
+    
+    .nav-item.active {
+      color: var(--primary-color);
+    }
+    
+    .nav-item i {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+    
+    .app-selector {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .app-button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border: none;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    .app-button.active {
+      background-color: var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="iphone-mockup">
+      <div class="phone-screen">
+        <div class="status-bar">
+          <div class="status-bar-left">9:41</div>
+          <div class="status-bar-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+          </div>
+        </div>
+        <div class="content-area">
+          <iframe id="app-frame" src="home.html"></iframe>
+        </div>
+        <div class="nav-bar">
+          <div class="nav-item active" onclick="changeFrame('home.html', this)">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+          </div>
+          <div class="nav-item" onclick="changeFrame('payments.html', this)">
+            <i class="fas fa-credit-card"></i>
+            <span>Pagos</span>
+          </div>
+          <div class="nav-item" onclick="changeFrame('intercom.html', this)">
+            <i class="fas fa-phone-alt"></i>
+            <span>Citófono</span>
+          </div>
+          <div class="nav-item" onclick="changeFrame('areas.html', this)">
+            <i class="fas fa-calendar"></i>
+            <span>Reservas</span>
+          </div>
+          <div class="nav-item" onclick="changeFrame('profile.html', this)">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="app-selector">
+      <button class="app-button active" onclick="switchApp('resident')">Residente</button>
+      <button class="app-button" onclick="switchApp('porter')">Portero</button>
+      <button class="app-button" onclick="switchApp('admin')">Administrador</button>
+    </div>
+  </div>
+
+  <script>
+    let currentApp = 'resident';
+    
+    function changeFrame(src, element) {
+      document.getElementById('app-frame').src = src;
+      
+      // Remove active class from all nav items
+      document.querySelectorAll('.nav-bar .nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // Add active class to clicked nav item
+      if (element) {
+        element.classList.add('active');
+      }
+    }
+    
+    function switchApp(app) {
+      currentApp = app;
+      
+      // Update buttons
+      document.querySelectorAll('.app-button').forEach(button => {
+        button.classList.remove('active');
+      });
+      
+      event.target.classList.add('active');
+      
+      // Update navigation items based on app
+      const navItems = document.querySelectorAll('.nav-bar .nav-item');
+      
+      if (app === 'resident') {
+        changeNavigationForResident(navItems);
+      } else if (app === 'porter') {
+        changeNavigationForPorter(navItems);
+      } else if (app === 'admin') {
+        changeNavigationForAdmin(navItems);
+      }
+      
+      // Load the corresponding home page
+      changeFrame(`${app}-home.html`, navItems[0]);
+    }
+    
+    function changeNavigationForResident(navItems) {
+      navItems[0].innerHTML = '<i class="fas fa-home"></i><span>Inicio</span>';
+      navItems[1].innerHTML = '<i class="fas fa-credit-card"></i><span>Pagos</span>';
+      navItems[2].innerHTML = '<i class="fas fa-phone-alt"></i><span>Citófono</span>';
+      navItems[3].innerHTML = '<i class="fas fa-calendar"></i><span>Reservas</span>';
+      navItems[4].innerHTML = '<i class="fas fa-user"></i><span>Perfil</span>';
+      
+      navItems[0].onclick = function() { changeFrame('resident-home.html', this); };
+      navItems[1].onclick = function() { changeFrame('resident-payments.html', this); };
+      navItems[2].onclick = function() { changeFrame('resident-intercom.html', this); };
+      navItems[3].onclick = function() { changeFrame('resident-areas.html', this); };
+      navItems[4].onclick = function() { changeFrame('resident-profile.html', this); };
+    }
+    
+    function changeNavigationForPorter(navItems) {
+      navItems[0].innerHTML = '<i class="fas fa-home"></i><span>Inicio</span>';
+      navItems[1].innerHTML = '<i class="fas fa-user-plus"></i><span>Visitantes</span>';
+      navItems[2].innerHTML = '<i class="fas fa-phone-alt"></i><span>Citófono</span>';
+      navItems[3].innerHTML = '<i class="fas fa-box"></i><span>Paquetería</span>';
+      navItems[4].innerHTML = '<i class="fas fa-ellipsis-h"></i><span>Más</span>';
+      
+      navItems[0].onclick = function() { changeFrame('porter-home.html', this); };
+      navItems[1].onclick = function() { changeFrame('porter-visitors.html', this); };
+      navItems[2].onclick = function() { changeFrame('porter-intercom.html', this); };
+      navItems[3].onclick = function() { changeFrame('porter-packages.html', this); };
+      navItems[4].onclick = function() { changeFrame('porter-more.html', this); };
+    }
+    
+    function changeNavigationForAdmin(navItems) {
+      navItems[0].innerHTML = '<i class="fas fa-chart-line"></i><span>Dashboard</span>';
+      navItems[1].innerHTML = '<i class="fas fa-money-bill"></i><span>Cobros</span>';
+      navItems[2].innerHTML = '<i class="fas fa-bullhorn"></i><span>Comunicados</span>';
+      navItems[3].innerHTML = '<i class="fas fa-users"></i><span>Usuarios</span>';
+      navItems[4].innerHTML = '<i class="fas fa-cog"></i><span>Configuración</span>';
+      
+      navItems[0].onclick = function() { changeFrame('admin-dashboard.html', this); };
+      navItems[1].onclick = function() { changeFrame('admin-billing.html', this); };
+      navItems[2].onclick = function() { changeFrame('admin-communication.html', this); };
+      navItems[3].onclick = function() { changeFrame('admin-users.html', this); };
+      navItems[4].onclick = function() { changeFrame('admin-settings.html', this); };
+    }
+    
+    // Initialize with resident app
+    switchApp('resident');
+  </script>
+</body>
+</html>

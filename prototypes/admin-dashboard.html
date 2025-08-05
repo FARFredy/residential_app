@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResidencialApp - Panel Administrador</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    .app-container {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+    }
+    
+    .stat-card {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+    }
+    
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      font-size: 24px;
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .tab-active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 slide-in">
+      <div>
+        <h1 class="text-xl font-bold">Panel Administrador</h1>
+        <p class="text-sm text-gray-500">Conjunto Residencial Las Palmas</p>
+      </div>
+      <div class="flex items-center">
+        <button class="bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-sm mr-2">
+          <i class="fas fa-bell text-gray-600"></i>
+        </button>
+        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+          <i class="fas fa-user text-gray-500"></i>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Stats Overview -->
+    <div class="grid grid-cols-2 gap-3 mb-6 slide-in" style="animation-delay: 0.1s;">
+      <div class="card stat-card">
+        <div class="stat-icon bg-blue-100 text-blue-600">
+          <i class="fas fa-users"></i>
+        </div>
+        <div>
+          <h3 class="text-sm text-gray-500">Residentes</h3>
+          <p class="text-xl font-bold">126</p>
+        </div>
+      </div>
+      
+      <div class="card stat-card">
+        <div class="stat-icon bg-green-100 text-green-600">
+          <i class="fas fa-home"></i>
+        </div>
+        <div>
+          <h3 class="text-sm text-gray-500">Apartamentos</h3>
+          <p class="text-xl font-bold">75</p>
+        </div>
+      </div>
+      
+      <div class="card stat-card">
+        <div class="stat-icon bg-amber-100 text-amber-600">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div>
+          <h3 class="text-sm text-gray-500">Reservas activas</h3>
+          <p class="text-xl font-bold">8</p>
+        </div>
+      </div>
+      
+      <div class="card stat-card">
+        <div class="stat-icon bg-red-100 text-red-600">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div>
+          <h3 class="text-sm text-gray-500">Reportes pendientes</h3>
+          <p class="text-xl font-bold">3</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Financial Summary -->
+    <div class="card mb-6 slide-in" style="animation-delay: 0.2s;">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">Resumen financiero</h2>
+        <button class="text-indigo-600 text-sm font-medium">Ver detalle</button>
+      </div>
+      
+      <div class="flex justify-between items-center mb-3">
+        <div>
+          <h3 class="text-sm text-gray-500">Cuotas recaudadas (mes)</h3>
+          <p class="text-xl font-bold text-green-600">$8,750,000</p>
+        </div>
+        <div class="text-right">
+          <h3 class="text-sm text-gray-500">Pagos pendientes</h3>
+          <p class="text-xl font-bold text-red-600">$2,100,000</p>
+        </div>
+      </div>
+      
+      <div class="relative pt-1">
+        <div class="flex mb-2 items-center justify-between">
+          <div>
+            <span class="text-xs font-semibold inline-block text-indigo-600">
+              81% recaudado
+            </span>
+          </div>
+          <div class="text-right">
+            <span class="text-xs font-semibold inline-block">
+              Meta: $10,850,000
+            </span>
+          </div>
+        </div>
+        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-indigo-100">
+          <div style="width:81%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-600"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quick Access -->
+    <h2 class="font-semibold mb-3 slide-in" style="animation-delay: 0.25s;">Acceso rápido</h2>
+    
+    <div class="grid grid-cols-3 gap-3 mb-6 slide-in" style="animation-delay: 0.25s;">
+      <div class="card flex flex-col items-center justify-center py-3" onclick="location.href='admin-residents.html'">
+        <i class="fas fa-users text-indigo-600 text-xl mb-2"></i>
+        <span class="text-xs text-center">Residentes</span>
+      </div>
+      
+      <div class="card flex flex-col items-center justify-center py-3" onclick="location.href='admin-payments.html'">
+        <i class="fas fa-file-invoice-dollar text-green-600 text-xl mb-2"></i>
+        <span class="text-xs text-center">Pagos</span>
+      </div>
+      
+      <div class="card flex flex-col items-center justify-center py-3" onclick="location.href='admin-areas.html'">
+        <i class="fas fa-swimming-pool text-blue-600 text-xl mb-2"></i>
+        <span class="text-xs text-center">Áreas comunes</span>
+      </div>
+      
+      <div class="card flex flex-col items-center justify-center py-3" onclick="location.href='admin-reports.html'">
+        <i class="fas fa-exclamation-triangle text-amber-600 text-xl mb-2"></i>
+        <span class="text-xs text-center">Reportes</span>
+      </div>
+      
+      <div class="card flex flex-col items-center justify-center py-3" onclick="location.href='admin-staff.html'">
+        <i class="fas fa-user-tie text-purple-600 text-xl mb-2"></i>
+        <span class="text-xs text-center">Personal</span>
+      </div>
+      
+      <div class="card flex flex-col items-center justify-center py-3" onclick="location.href='admin-announcements.html'">
+        <i class="fas fa-bullhorn text-red-600 text-xl mb-2"></i>
+        <span class="text-xs text-center">Anuncios</span>
+      </div>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="flex justify-between items-center mb-3 slide-in" style="animation-delay: 0.3s;">
+      <h2 class="font-semibold">Actividad reciente</h2>
+      <span class="text-sm text-indigo-600">Ver todo</span>
+    </div>
+    
+    <div class="card mb-6 slide-in" style="animation-delay: 0.3s;">
+      <div class="flex items-start mb-4 pb-4 border-b border-gray-100">
+        <div class="bg-green-100 h-10 w-10 rounded-full flex items-center justify-center text-green-600 mr-3">
+          <i class="fas fa-file-invoice-dollar"></i>
+        </div>
+        <div>
+          <h3 class="font-medium text-sm">Pago registrado</h3>
+          <p class="text-xs text-gray-500 mb-1">Apto 502 - Torre A: $135,000</p>
+          <p class="text-xs text-gray-400">Hace 1 hora</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start mb-4 pb-4 border-b border-gray-100">
+        <div class="bg-blue-100 h-10 w-10 rounded-full flex items-center justify-center text-blue-600 mr-3">
+          <i class="fas fa-swimming-pool"></i>
+        </div>
+        <div>
+          <h3 class="font-medium text-sm">Reserva aprobada</h3>
+          <p class="text-xs text-gray-500 mb-1">Salón social - 15 de agosto</p>
+          <p class="text-xs text-gray-400">Hace 2 horas</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start mb-4 pb-4 border-b border-gray-100">
+        <div class="bg-red-100 h-10 w-10 rounded-full flex items-center justify-center text-red-600 mr-3">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div>
+          <h3 class="font-medium text-sm">Reporte recibido</h3>
+          <p class="text-xs text-gray-500 mb-1">Fuga de agua en pasillo - Torre B</p>
+          <p class="text-xs text-gray-400">Hace 3 horas</p>
+        </div>
+      </div>
+      
+      <div class="flex items-start">
+        <div class="bg-purple-100 h-10 w-10 rounded-full flex items-center justify-center text-purple-600 mr-3">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <div>
+          <h3 class="font-medium text-sm">Nuevo residente registrado</h3>
+          <p class="text-xs text-gray-500 mb-1">Jorge Martínez - Apto 301 Torre C</p>
+          <p class="text-xs text-gray-400">Hace 5 horas</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Tabs for different views -->
+    <div class="flex border-b border-gray-200 mb-6 slide-in" style="animation-delay: 0.35s;">
+      <button class="pb-2 px-4 tab-active">Pendientes</button>
+      <button class="pb-2 px-4 text-gray-500">Calendario</button>
+      <button class="pb-2 px-4 text-gray-500">Documentos</button>
+    </div>
+    
+    <!-- Pending Tasks -->
+    <div class="card slide-in" style="animation-delay: 0.4s;">
+      <div class="flex items-center mb-4 pb-3 border-b border-gray-100">
+        <input type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded mr-3">
+        <div class="flex-1">
+          <h3 class="font-medium text-sm">Revisar presupuesto mensual</h3>
+          <p class="text-xs text-gray-500">Vencimiento: Hoy</p>
+        </div>
+        <span class="ml-auto bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Urgente</span>
+      </div>
+      
+      <div class="flex items-center mb-4 pb-3 border-b border-gray-100">
+        <input type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded mr-3">
+        <div class="flex-1">
+          <h3 class="font-medium text-sm">Aprobar cotización mantenimiento ascensores</h3>
+          <p class="text-xs text-gray-500">Vencimiento: Mañana</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center mb-4 pb-3 border-b border-gray-100">
+        <input type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded mr-3">
+        <div class="flex-1">
+          <h3 class="font-medium text-sm">Reunión con consejo de administración</h3>
+          <p class="text-xs text-gray-500">Vencimiento: 10 de agosto, 2025</p>
+        </div>
+        <span class="ml-auto bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Programado</span>
+      </div>
+      
+      <div class="flex items-center">
+        <input type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded mr-3">
+        <div class="flex-1">
+          <h3 class="font-medium text-sm">Preparar informe trimestral</h3>
+          <p class="text-xs text-gray-500">Vencimiento: 15 de agosto, 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

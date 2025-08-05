@@ -1,0 +1,280 @@
+classDiagram
+    class User {
+        <<abstract>>
+        +id: String
+        +name: String
+        +email: String
+        +phone: String
+        +profilePic: String
+        +createdAt: Date
+        +updatedAt: Date
+        +authenticate(password: String): Boolean
+        +updateProfile(userData: Object): User
+    }
+
+    class Resident {
+        +unitId: String
+        +isOwner: Boolean
+        +familyMembers: Array~User~
+        +vehicles: Array~Vehicle~
+        +paymentMethods: Array~PaymentMethod~
+        +notificationPreferences: NotificationPreferences
+        +getPendingPayments(): Array~Payment~
+        +authorizeVisitor(visitor: Visitor): AuthorizationCode
+        +makePayment(paymentInfo: Object): PaymentResult
+        +reserveCommonArea(reservation: Object): Reservation
+    }
+
+    class Administrator {
+        +properties: Array~Property~
+        +generateBillings(): Array~Billing~
+        +sendBroadcastNotification(message: Object): NotificationResult
+        +getFinancialReports(): Array~Report~
+        +manageComplaints(action: String, complaintId: String): ComplaintResult
+        +scheduleMaintenances(maintenanceInfo: Object): MaintenanceSchedule
+    }
+
+    class Porter {
+        +propertyId: String
+        +shift: String
+        +registerVisitor(visitorInfo: Object): Visitor
+        +contactResident(residentId: String): CallResult
+        +registerPackage(packageInfo: Object): Package
+        +scanIdentification(documentImage: Image): IdentificationResult
+    }
+
+    class Property {
+        +id: String
+        +name: String
+        +address: String
+        +units: Array~Unit~
+        +commonAreas: Array~CommonArea~
+        +administrators: Array~Administrator~
+        +porters: Array~Porter~
+        +generatePropertyReport(): PropertyReport
+        +getBuildingStatus(): StatusReport
+    }
+
+    class Unit {
+        +id: String
+        +propertyId: String
+        +number: String
+        +floor: Number
+        +area: Number
+        +residents: Array~Resident~
+        +owner: Resident
+        +billings: Array~Billing~
+        +getPaymentHistory(): Array~Payment~
+        +getResidentHistory(): Array~ResidentHistory~
+    }
+
+    class Billing {
+        +id: String
+        +unitId: String
+        +amount: Number
+        +dueDate: Date
+        +status: String
+        +concept: String
+        +createdAt: Date
+        +paymentDetails: Array~PaymentDetail~
+        +generatePDF(): PDF
+        +sendNotification(): NotificationResult
+        +applyLateCharge(): Billing
+    }
+
+    class Payment {
+        +id: String
+        +billingId: String
+        +residentId: String
+        +amount: Number
+        +paymentMethod: String
+        +status: String
+        +transactionId: String
+        +timestamp: Date
+        +receiptNumber: String
+        +generateReceipt(): Receipt
+        +refund(): RefundResult
+    }
+
+    class CommonArea {
+        +id: String
+        +propertyId: String
+        +name: String
+        +capacity: Number
+        +availableTimeSlots: Array~TimeSlot~
+        +reservations: Array~Reservation~
+        +costPerHour: Number
+        +rules: String
+        +getAvailability(date: Date): Array~TimeSlot~
+        +makeReservation(residentId: String, timeSlot: TimeSlot): Reservation
+    }
+
+    class Reservation {
+        +id: String
+        +commonAreaId: String
+        +residentId: String
+        +date: Date
+        +startTime: Time
+        +endTime: Time
+        +status: String
+        +cost: Number
+        +paymentId: String
+        +cancel(): RefundResult
+        +extendTime(additionalTime: Number): ReservationResult
+    }
+
+    class Visitor {
+        +id: String
+        +name: String
+        +identificationType: String
+        +identificationNumber: String
+        +photo: String
+        +hostUnitId: String
+        +arrivalTime: DateTime
+        +departureTime: DateTime
+        +purpose: String
+        +status: String
+        +vehicleInfo: Vehicle
+        +scanDocument(documentImage: Image): IdentificationResult
+        +notifyHost(): NotificationResult
+    }
+
+    class Package {
+        +id: String
+        +unitId: String
+        +description: String
+        +photos: Array~String~
+        +deliveryCompany: String
+        +receivedBy: String
+        +receivedAt: DateTime
+        +status: String
+        +notifyResident(): NotificationResult
+        +markAsDelivered(signature: Image): DeliveryResult
+    }
+
+    class Notification {
+        +id: String
+        +targetUsers: Array~String~
+        +title: String
+        +content: String
+        +type: String
+        +priority: String
+        +createdAt: DateTime
+        +read: Boolean
+        +readAt: DateTime
+        +actions: Array~Action~
+        +send(): DeliveryStatus
+        +markAsRead(): Notification
+    }
+
+    class Complaint {
+        +id: String
+        +residentId: String
+        +title: String
+        +description: String
+        +category: String
+        +status: String
+        +priority: String
+        +attachments: Array~String~
+        +createdAt: DateTime
+        +assigneeId: String
+        +updateStatus(status: String, comments: String): Complaint
+        +assignTo(userId: String): Complaint
+    }
+
+    class VirtualIntercom {
+        +id: String
+        +callerId: String
+        +receiverId: String
+        +startTime: DateTime
+        +endTime: DateTime
+        +status: String
+        +recordingUrl: String
+        +initiateCall(): CallStatus
+        +endCall(): CallSummary
+        +authorizeEntry(): AuthorizationResult
+    }
+
+    class PaymentMethod {
+        +id: String
+        +userId: String
+        +type: String
+        +providerToken: String
+        +last4Digits: String
+        +expiryDate: String
+        +isDefault: Boolean
+        +validate(): ValidationResult
+        +makeDefault(): PaymentMethod
+        +delete(): DeletionResult
+    }
+
+    class Vehicle {
+        +id: String
+        +ownerId: String
+        +type: String
+        +brand: String
+        +model: String
+        +color: String
+        +plate: String
+        +registerEntry(timestamp: DateTime): EntryRecord
+        +registerExit(timestamp: DateTime): ExitRecord
+    }
+
+    class Report {
+        +id: String
+        +type: String
+        +periodStart: Date
+        +periodEnd: Date
+        +data: Object
+        +createdAt: DateTime
+        +format: String
+        +generatePDF(): PDF
+        +sendByEmail(email: String): DeliveryStatus
+    }
+
+    class NotificationPreferences {
+        +userId: String
+        +pushEnabled: Boolean
+        +emailEnabled: Boolean
+        +smsEnabled: Boolean
+        +paymentAlerts: Boolean
+        +visitorAlerts: Boolean
+        +packageAlerts: Boolean
+        +communityAlerts: Boolean
+        +updatePreferences(preferences: Object): NotificationPreferences
+    }
+
+    class MaintenanceSchedule {
+        +id: String
+        +propertyId: String
+        +title: String
+        +description: String
+        +areas: Array~String~
+        +startDate: DateTime
+        +endDate: DateTime
+        +status: String
+        +assignedTo: Array~String~
+        +notifyResidents(): NotificationResult
+        +updateStatus(status: String): MaintenanceSchedule
+    }
+
+    User <|-- Resident
+    User <|-- Administrator
+    User <|-- Porter
+    Property --o Unit
+    Property --o CommonArea
+    Unit --o Billing
+    Unit --* Resident
+    Billing --o Payment
+    CommonArea --o Reservation
+    Resident --o Vehicle
+    Resident --o PaymentMethod
+    Resident --o NotificationPreferences
+    Notification --o User
+    Visitor --o Unit
+    Package --o Unit
+    VirtualIntercom --o User
+    Complaint --o Resident
+    Complaint --o Administrator
+    Property --o MaintenanceSchedule
+    Report --o Administrator

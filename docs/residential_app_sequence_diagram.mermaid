@@ -1,0 +1,101 @@
+sequenceDiagram
+    participant R as Residente
+    participant RA as ResidenteApp
+    participant API as APIBackend
+    participant DB as BaseDeDatos
+    participant P as PorterApp
+    participant PO as Portero
+    participant A as AdminApp
+    participant AD as Administrador
+    participant PG as PasarelaPago
+
+    %% Flujo de inicio de sesión
+    R->>RA: Inicia sesión
+    RA->>API: POST /auth/login
+    API->>DB: Verifica credenciales
+    DB-->>API: Retorna datos de usuario
+    API-->>RA: Devuelve token JWT
+    RA-->>R: Muestra dashboard
+
+    %% Flujo de pago de cuota
+    R->>RA: Selecciona "Realizar pago"
+    RA->>API: GET /billings/pending
+    API->>DB: Consulta facturas pendientes
+    DB-->>API: Retorna facturas
+    API-->>RA: Muestra facturas pendientes
+    R->>RA: Selecciona factura y método de pago
+    RA->>API: POST /payments
+    API->>PG: Inicia transacción
+    PG-->>API: Confirma transacción
+    API->>DB: Registra pago
+    DB-->>API: Confirma registro
+    API-->>RA: Muestra confirmación
+    RA-->>R: Muestra recibo digital
+
+    %% Flujo de citofonía virtual
+    PO->>P: Registra visitante
+    P->>API: POST /visitors
+    API->>DB: Guarda datos de visitante
+    DB-->>API: Confirma registro
+    API->>RA: Envía notificación push
+    RA-->>R: Muestra notificación "Visitante en portería"
+    R->>RA: Abre notificación
+    RA->>API: GET /visitors/latest
+    API->>DB: Obtiene detalles del visitante
+    DB-->>API: Retorna información
+    API-->>RA: Muestra detalles del visitante
+    R->>RA: Acepta llamada de citofonía
+    RA->>API: POST /intercom/call
+    API->>P: Inicia llamada WebRTC
+    P-->>PO: Conecta llamada con residente
+    PO->>P: Habla con residente
+    P->>RA: Comunicación bidireccional
+    R->>RA: Autoriza entrada
+    RA->>API: POST /visitors/authorize
+    API->>DB: Actualiza estado del visitante
+    DB-->>API: Confirma actualización
+    API->>P: Envía autorización
+    P-->>PO: Muestra autorización concedida
+
+    %% Flujo de reserva de áreas comunes
+    R->>RA: Selecciona "Zonas comunes"
+    RA->>API: GET /common-areas
+    API->>DB: Consulta áreas disponibles
+    DB-->>API: Retorna listado
+    API-->>RA: Muestra áreas comunes
+    R->>RA: Selecciona área y fecha
+    RA->>API: GET /common-areas/{id}/availability
+    API->>DB: Verifica disponibilidad
+    DB-->>API: Retorna horarios disponibles
+    API-->>RA: Muestra slots disponibles
+    R->>RA: Selecciona horario
+    RA->>API: POST /reservations
+    API->>DB: Registra reserva
+    DB-->>API: Confirma reserva
+    API-->>RA: Muestra confirmación
+    API->>DB: Verifica si requiere pago
+    DB-->>API: Confirma tarifa
+    alt Requiere pago
+        API->>PG: Inicia transacción
+        PG-->>API: Confirma transacción
+        API->>DB: Actualiza estado de pago
+    end
+    API-->>RA: Muestra comprobante de reserva
+
+    %% Flujo de administrador - generación de cobros
+    AD->>A: Accede a "Generar cobros"
+    A->>API: GET /units
+    API->>DB: Consulta unidades
+    DB-->>API: Retorna listado
+    API-->>A: Muestra unidades
+    AD->>A: Configura cobro (concepto, monto, fecha)
+    A->>API: POST /billings/batch
+    API->>DB: Crea registros de cobro
+    DB-->>API: Confirma creación
+    API-->>A: Muestra resumen
+    AD->>A: Confirma envío
+    A->>API: POST /notifications/bulk
+    API->>DB: Registra notificaciones
+    DB-->>API: Confirma registro
+    API->>RA: Envía notificaciones a residentes
+    RA-->>R: Muestra notificación de nuevo cobro

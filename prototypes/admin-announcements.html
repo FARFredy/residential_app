@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResidencialApp - Anuncios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    .app-container {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+    }
+    
+    .tab-active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .announcement-badge {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 slide-in">
+      <div class="flex items-center">
+        <a href="admin-dashboard.html" class="mr-2">
+          <i class="fas fa-arrow-left text-gray-700"></i>
+        </a>
+        <h1 class="text-xl font-bold">Anuncios</h1>
+      </div>
+      <button id="newAnnouncementBtn" class="bg-indigo-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-sm">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="flex border-b border-gray-200 mb-6 slide-in">
+      <button class="pb-2 px-4 tab-active">Activos</button>
+      <button class="pb-2 px-4 text-gray-500">Programados</button>
+      <button class="pb-2 px-4 text-gray-500">Archivados</button>
+    </div>
+    
+    <!-- Search Bar -->
+    <div class="mb-6 slide-in" style="animation-delay: 0.1s;">
+      <div class="relative">
+        <input type="text" placeholder="Buscar anuncios..." class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+      </div>
+    </div>
+    
+    <!-- Filter Options -->
+    <div class="mb-6 flex flex-wrap gap-2 slide-in" style="animation-delay: 0.15s;">
+      <button class="px-3 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium flex items-center">
+        <i class="fas fa-filter mr-1.5"></i>
+        Todos
+      </button>
+      <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-700 rounded-full text-sm">Urgentes</button>
+      <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-700 rounded-full text-sm">Informativo</button>
+      <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-700 rounded-full text-sm">Mantenimiento</button>
+    </div>
+    
+    <!-- Active Announcements -->
+    <div class="slide-in" style="animation-delay: 0.2s;">
+      <!-- Urgent Announcement -->
+      <div class="card border-l-4 border-red-500 mb-4">
+        <div class="flex items-start">
+          <div class="flex-1">
+            <div class="flex items-center mb-2">
+              <span class="announcement-badge bg-red-500"></span>
+              <h3 class="font-medium">Corte de agua programado</h3>
+              <span class="ml-2 bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded">Urgente</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">Se informa a todos los residentes que habrá un corte de agua programado el día 10 de agosto de 8:00 AM a 2:00 PM debido a trabajos de mantenimiento en la red principal.</p>
+            <div class="flex items-center text-xs text-gray-500">
+              <i class="far fa-calendar mr-1"></i>
+              <span>Publicado: 04/08/2025</span>
+              <span class="mx-2">|</span>
+              <i class="far fa-eye mr-1"></i>
+              <span>Visto por 45 residentes</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Maintenance Announcement -->
+      <div class="card border-l-4 border-amber-500 mb-4">
+        <div class="flex items-start">
+          <div class="flex-1">
+            <div class="flex items-center mb-2">
+              <span class="announcement-badge bg-amber-500"></span>
+              <h3 class="font-medium">Mantenimiento de ascensores</h3>
+              <span class="ml-2 bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded">Mantenimiento</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">Informamos que se realizará mantenimiento preventivo de los ascensores en la Torre B los días 12 y 13 de agosto. El servicio podría presentar interrupciones temporales.</p>
+            <div class="flex items-center text-xs text-gray-500">
+              <i class="far fa-calendar mr-1"></i>
+              <span>Publicado: 02/08/2025</span>
+              <span class="mx-2">|</span>
+              <i class="far fa-eye mr-1"></i>
+              <span>Visto por 38 residentes</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Info Announcement -->
+      <div class="card border-l-4 border-blue-500 mb-4">
+        <div class="flex items-start">
+          <div class="flex-1">
+            <div class="flex items-center mb-2">
+              <span class="announcement-badge bg-blue-500"></span>
+              <h3 class="font-medium">Nueva aplicación de administración</h3>
+              <span class="ml-2 bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Informativo</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">Tenemos el placer de presentar nuestra nueva aplicación móvil para la gestión del conjunto residencial. Descárgala ya para acceder a todas las funciones desde tu dispositivo móvil.</p>
+            <div class="flex items-center text-xs text-gray-500">
+              <i class="far fa-calendar mr-1"></i>
+              <span>Publicado: 01/08/2025</span>
+              <span class="mx-2">|</span>
+              <i class="far fa-eye mr-1"></i>
+              <span>Visto por 52 residentes</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- General Announcement -->
+      <div class="card border-l-4 border-green-500">
+        <div class="flex items-start">
+          <div class="flex-1">
+            <div class="flex items-center mb-2">
+              <span class="announcement-badge bg-green-500"></span>
+              <h3 class="font-medium">Evento comunitario: Día de la familia</h3>
+              <span class="ml-2 bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Comunidad</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">El próximo 20 de agosto celebraremos el Día de la Familia en las áreas comunes del conjunto. Habrá actividades para todas las edades, comida y música. ¡Los esperamos!</p>
+            <div class="flex items-center text-xs text-gray-500">
+              <i class="far fa-calendar mr-1"></i>
+              <span>Publicado: 31/07/2025</span>
+              <span class="mx-2">|</span>
+              <i class="far fa-eye mr-1"></i>
+              <span>Visto por 62 residentes</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <button class="text-gray-400">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- New Announcement Modal (hidden initially) -->
+    <div id="newAnnouncementModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+      <div class="bg-white rounded-lg p-6 m-4 w-full max-w-md">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-medium">Nuevo anuncio</h3>
+          <button id="closeModalBtn" class="text-gray-400 hover:text-gray-500">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Título</label>
+          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de anuncio</label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <option>Informativo</option>
+            <option>Urgente</option>
+            <option>Mantenimiento</option>
+            <option>Comunidad</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Mensaje</label>
+          <textarea class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" rows="4"></textarea>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Duración del anuncio</label>
+          <div class="flex space-x-3">
+            <div class="flex-1">
+              <label class="block text-xs text-gray-500 mb-1">Fecha inicio</label>
+              <input type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2">
+            </div>
+            <div class="flex-1">
+              <label class="block text-xs text-gray-500 mb-1">Fecha fin</label>
+              <input type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2">
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Visibilidad</label>
+          <div class="flex items-center mb-2">
+            <input id="all-residents" type="radio" name="visibility" class="w-4 h-4 text-indigo-600 border-gray-300" checked>
+            <label for="all-residents" class="ml-2 text-sm font-medium text-gray-700">Todos los residentes</label>
+          </div>
+          <div class="flex items-center mb-2">
+            <input id="specific-towers" type="radio" name="visibility" class="w-4 h-4 text-indigo-600 border-gray-300">
+            <label for="specific-towers" class="ml-2 text-sm font-medium text-gray-700">Torres específicas</label>
+          </div>
+          <div class="flex items-center">
+            <input id="admin-only" type="radio" name="visibility" class="w-4 h-4 text-indigo-600 border-gray-300">
+            <label for="admin-only" class="ml-2 text-sm font-medium text-gray-700">Solo administración</label>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <div class="flex items-center">
+            <input id="push-notification" type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" checked>
+            <label for="push-notification" class="ml-2 text-sm font-medium text-gray-700">Enviar notificación push</label>
+          </div>
+        </div>
+        
+        <div class="flex space-x-3">
+          <button id="cancelBtn" class="flex-1 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+            Cancelar
+          </button>
+          <button class="flex-1 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+            Publicar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Modal functionality
+    document.getElementById('newAnnouncementBtn').addEventListener('click', function() {
+      document.getElementById('newAnnouncementModal').classList.remove('hidden');
+    });
+    
+    document.getElementById('closeModalBtn').addEventListener('click', function() {
+      document.getElementById('newAnnouncementModal').classList.add('hidden');
+    });
+    
+    document.getElementById('cancelBtn').addEventListener('click', function() {
+      document.getElementById('newAnnouncementModal').classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

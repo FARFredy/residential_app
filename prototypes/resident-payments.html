@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResidencialApp - Pagos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    .app-container {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+    }
+    
+    .tab-active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .payment-method {
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    
+    .payment-method.active {
+      border-color: var(--primary-color);
+      background-color: rgba(63, 81, 181, 0.05);
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 slide-in">
+      <h1 class="text-xl font-bold">Pagos</h1>
+    </div>
+    
+    <!-- Summary Card -->
+    <div class="card mb-6 slide-in">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="font-semibold">Resumen de cuenta</h2>
+      </div>
+      
+      <div class="flex justify-between mb-2">
+        <span class="text-sm text-gray-600">Saldo total pendiente</span>
+        <span class="font-semibold">$450.000 COP</span>
+      </div>
+      
+      <div class="flex justify-between">
+        <span class="text-sm text-gray-600">Próximo vencimiento</span>
+        <span class="font-semibold text-red-500">Agosto 6, 2025</span>
+      </div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="flex border-b border-gray-200 mb-6 slide-in" style="animation-delay: 0.1s;">
+      <button class="pb-2 px-4 tab-active">Pendientes</button>
+      <button class="pb-2 px-4 text-gray-500">Historial</button>
+      <button class="pb-2 px-4 text-gray-500">Métodos de Pago</button>
+    </div>
+    
+    <!-- Pending Payments -->
+    <div class="slide-in" style="animation-delay: 0.2s;">
+      <div class="card mb-4">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h3 class="font-semibold">Cuota de Administración</h3>
+            <p class="text-sm text-gray-500">Agosto 2025</p>
+          </div>
+          <span class="font-bold">$320.000</span>
+        </div>
+        
+        <div class="mb-3 w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-red-500 h-2 rounded-full" style="width: 90%"></div>
+        </div>
+        
+        <div class="flex justify-between text-xs mb-4">
+          <span>Emitida: Jul 20</span>
+          <span class="text-red-500 font-medium">Vence: Ago 6</span>
+        </div>
+        
+        <button class="w-full py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+          Pagar ahora
+        </button>
+      </div>
+      
+      <div class="card mb-4">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h3 class="font-semibold">Cuota Extraordinaria</h3>
+            <p class="text-sm text-gray-500">Reparación ascensores</p>
+          </div>
+          <span class="font-bold">$130.000</span>
+        </div>
+        
+        <div class="mb-3 w-full bg-gray-200 rounded-full h-2">
+          <div class="bg-amber-500 h-2 rounded-full" style="width: 60%"></div>
+        </div>
+        
+        <div class="flex justify-between text-xs mb-4">
+          <span>Emitida: Jul 15</span>
+          <span class="text-amber-600 font-medium">Vence: Ago 15</span>
+        </div>
+        
+        <button class="w-full py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors">
+          Pagar ahora
+        </button>
+      </div>
+    </div>
+    
+    <!-- Payment Methods Section -->
+    <h2 class="font-semibold mb-3 slide-in" style="animation-delay: 0.3s;">Pagar con</h2>
+    
+    <div class="grid grid-cols-3 gap-3 mb-6 slide-in" style="animation-delay: 0.3s;">
+      <div class="payment-method active rounded-xl p-3 flex flex-col items-center justify-center">
+        <div class="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+          <i class="fas fa-credit-card text-blue-600"></i>
+        </div>
+        <span class="text-xs text-center">Tarjeta de crédito</span>
+      </div>
+      
+      <div class="payment-method rounded-xl p-3 flex flex-col items-center justify-center">
+        <div class="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center mb-2">
+          <i class="fas fa-university text-green-600"></i>
+        </div>
+        <span class="text-xs text-center">PSE</span>
+      </div>
+      
+      <div class="payment-method rounded-xl p-3 flex flex-col items-center justify-center">
+        <div class="h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center mb-2">
+          <i class="fas fa-qrcode text-purple-600"></i>
+        </div>
+        <span class="text-xs text-center">Código QR</span>
+      </div>
+    </div>
+    
+    <!-- Recent Transactions -->
+    <div class="slide-in" style="animation-delay: 0.4s;">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-semibold">Transacciones recientes</h2>
+        <span class="text-sm text-indigo-600">Ver todas</span>
+      </div>
+      
+      <div class="card">
+        <div class="flex items-center justify-between py-2 border-b border-gray-100">
+          <div class="flex items-center">
+            <div class="bg-green-100 h-10 w-10 rounded-full flex items-center justify-center text-green-600 mr-3">
+              <i class="fas fa-check"></i>
+            </div>
+            <div>
+              <h3 class="font-medium text-sm">Cuota de Administración</h3>
+              <p class="text-xs text-gray-500">Julio 2025</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-medium">$320.000</p>
+            <p class="text-xs text-gray-500">Jul 5, 2025</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center justify-between py-2 border-b border-gray-100">
+          <div class="flex items-center">
+            <div class="bg-green-100 h-10 w-10 rounded-full flex items-center justify-center text-green-600 mr-3">
+              <i class="fas fa-check"></i>
+            </div>
+            <div>
+              <h3 class="font-medium text-sm">Reserva Salón Social</h3>
+              <p class="text-xs text-gray-500">Fiesta de cumpleaños</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-medium">$150.000</p>
+            <p class="text-xs text-gray-500">Jun 28, 2025</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center justify-between py-2">
+          <div class="flex items-center">
+            <div class="bg-green-100 h-10 w-10 rounded-full flex items-center justify-center text-green-600 mr-3">
+              <i class="fas fa-check"></i>
+            </div>
+            <div>
+              <h3 class="font-medium text-sm">Cuota de Administración</h3>
+              <p class="text-xs text-gray-500">Junio 2025</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-medium">$320.000</p>
+            <p class="text-xs text-gray-500">Jun 5, 2025</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

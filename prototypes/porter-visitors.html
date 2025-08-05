@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResidencialApp - Visitantes</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3F51B5;
+      --secondary-color: #00BCD4;
+      --accent-color: #FF4081;
+      --background-color: #F5F5F5;
+      --text-color: #212121;
+      --success-color: #4CAF50;
+      --error-color: #F44336;
+      --warning-color: #FF9800;
+    }
+    
+    body {
+      font-family: 'Roboto', 'Open Sans', sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    .app-container {
+      padding: 1rem;
+      max-width: 100%;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 16px;
+    }
+    
+    .tab-active {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .camera-view {
+      height: 200px;
+      background-color: #000;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      position: relative;
+    }
+    
+    .camera-controls {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    
+    .camera-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    
+    .photo-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+    
+    .slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6 slide-in">
+      <h1 class="text-xl font-bold">Visitantes</h1>
+      <button class="bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-sm">
+        <i class="fas fa-qrcode text-gray-600"></i>
+      </button>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="flex border-b border-gray-200 mb-6 slide-in">
+      <button class="pb-2 px-4 tab-active">Registrar</button>
+      <button class="pb-2 px-4 text-gray-500">En curso</button>
+      <button class="pb-2 px-4 text-gray-500">Historial</button>
+    </div>
+    
+    <!-- Register Visitor Form -->
+    <div class="slide-in" style="animation-delay: 0.1s;">
+      <div class="camera-view mb-4">
+        <i class="fas fa-camera text-4xl mb-2 opacity-50"></i>
+        <p class="text-sm opacity-70">Toma una foto del visitante</p>
+        
+        <div class="camera-controls">
+          <button class="camera-btn">
+            <i class="fas fa-bolt"></i>
+          </button>
+          <button class="photo-btn">
+            <i class="fas fa-circle"></i>
+          </button>
+          <button class="camera-btn">
+            <i class="fas fa-sync"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="card mb-4">
+        <h2 class="font-medium mb-4">Información del visitante</h2>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de documento</label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <option>Cédula de Ciudadanía</option>
+            <option>Cédula de Extranjería</option>
+            <option>Pasaporte</option>
+            <option>Tarjeta de Identidad</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Número de documento</label>
+          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono (opcional)</label>
+          <input type="tel" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+        </div>
+      </div>
+      
+      <div class="card mb-4">
+        <h2 class="font-medium mb-4">Destino</h2>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Torre</label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <option>Torre A</option>
+            <option>Torre B</option>
+            <option>Torre C</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Apartamento</label>
+          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Residente a visitar</label>
+          <div class="relative">
+            <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Motivo de la visita</label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5">
+            <option>Social</option>
+            <option>Familiar</option>
+            <option>Servicio/Trabajo</option>
+            <option>Entrega</option>
+            <option>Otro</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="card mb-6">
+        <h2 class="font-medium mb-4">Vehículo (opcional)</h2>
+        
+        <div class="flex items-center mb-4">
+          <input id="has-vehicle" type="checkbox" class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+          <label for="has-vehicle" class="ml-2 text-sm font-medium text-gray-700">Ingresa con vehículo</label>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de vehículo</label>
+          <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" disabled>
+            <option>Automóvil</option>
+            <option>Motocicleta</option>
+            <option>Camioneta</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Placa</label>
+          <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" disabled>
+        </div>
+      </div>
+      
+      <button class="w-full py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center">
+        <i class="fas fa-phone-alt mr-2"></i>
+        Llamar a residente para autorización
+      </button>
+    </div>
+    
+    <!-- Current Visitors (initially hidden) -->
+    <div id="currentVisitors" class="hidden slide-in" style="animation-delay: 0.2s;">
+      <div class="mb-4">
+        <div class="relative">
+          <input type="text" placeholder="Buscar visitante o apartamento" class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+          <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+      </div>
+      
+      <div class="card mb-4 border-l-4 border-green-500">
+        <div class="flex items-center">
+          <div class="mr-3 bg-gray-200 w-12 h-12 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-gray-500"></i>
+          </div>
+          
+          <div>
+            <h3 class="font-medium">Carlos Gómez</h3>
+            <div class="flex text-sm text-gray-600">
+              <span class="mr-2">Torre A - Apto 502</span>
+              <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Autorizado</span>
+            </div>
+          </div>
+          
+          <button class="ml-auto text-gray-500">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+        </div>
+        
+        <hr class="my-3 border-gray-100">
+        
+        <div class="flex justify-between text-sm">
+          <div>
+            <p class="text-gray-600">Ingreso: 10:15 AM</p>
+            <p class="text-gray-600">Motivo: Social</p>
+          </div>
+          <button class="bg-red-100 text-red-700 px-3 py-1.5 rounded-lg text-sm font-medium">
+            Registrar salida
+          </button>
+        </div>
+      </div>
+      
+      <div class="card mb-4 border-l-4 border-amber-500">
+        <div class="flex items-center">
+          <div class="mr-3 bg-gray-200 w-12 h-12 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-gray-500"></i>
+          </div>
+          
+          <div>
+            <h3 class="font-medium">María López</h3>
+            <div class="flex text-sm text-gray-600">
+              <span class="mr-2">Torre B - Apto 305</span>
+              <span class="bg-amber-100 text-amber-800 text-xs font-medium px-2 py-0.5 rounded">Pendiente</span>
+            </div>
+          </div>
+          
+          <button class="ml-auto text-gray-500">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+        </div>
+        
+        <hr class="my-3 border-gray-100">
+        
+        <div class="flex justify-between text-sm">
+          <div>
+            <p class="text-gray-600">Registro: 11:05 AM</p>
+            <p class="text-gray-600">Motivo: Servicio</p>
+          </div>
+          <div class="flex space-x-2">
+            <button class="bg-red-100 text-red-700 px-3 py-1.5 rounded-lg text-sm font-medium">
+              Rechazar
+            </button>
+            <button class="bg-green-100 text-green-700 px-3 py-1.5 rounded-lg text-sm font-medium">
+              Autorizar
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mb-4 border-l-4 border-green-500">
+        <div class="flex items-center">
+          <div class="mr-3 bg-gray-200 w-12 h-12 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-gray-500"></i>
+          </div>
+          
+          <div>
+            <h3 class="font-medium">Roberto Sánchez</h3>
+            <div class="flex text-sm text-gray-600">
+              <span class="mr-2">Torre C - Apto 703</span>
+              <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded">Autorizado</span>
+            </div>
+          </div>
+          
+          <button class="ml-auto text-gray-500">
+            <i class="fas fa-ellipsis-v"></i>
+          </button>
+        </div>
+        
+        <hr class="my-3 border-gray-100">
+        
+        <div class="flex justify-between text-sm">
+          <div>
+            <p class="text-gray-600">Ingreso: 9:30 AM</p>
+            <p class="text-gray-600">Motivo: Familiar</p>
+          </div>
+          <button class="bg-red-100 text-red-700 px-3 py-1.5 rounded-lg text-sm font-medium">
+            Registrar salida
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('has-vehicle').addEventListener('change', function() {
+      const fields = document.querySelectorAll('select[disabled], input[disabled]');
+      fields.forEach(field => {
+        field.disabled = !this.checked;
+      });
+    });
+  </script>
+</body>
+</html>
